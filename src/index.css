@@ -1,0 +1,17 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url("https://fonts.googleapis.com/css2?family=Handjet:wght@600&display=swap");
+
+* {
+  font-family: "Handjet", cursive;
+}
+
+#detail {
+  background-image: radial-gradient(#47c4ff 2px, transparent 2px),
+    radial-gradient(#47c4ff 2px, transparent 2px);
+  background-size: 80px 80px;
+  background-position: 0 0, 40px 40px;
+  background-color: #ffffff;
+}
