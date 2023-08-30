@@ -2,7 +2,7 @@
   "name": "reactproject",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://MazurJohn.github.io/cookquest",
+  "homepage": "https://mazurjohn.github.io/cookquest",
   "type": "module",
   "scripts": {
     "dev": "vite",
