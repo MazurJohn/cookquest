@@ -86,7 +86,7 @@ const ShoppingList = () => {
                 className="flex items-center justify-between space-x-2 mb-2 border-b-2"
               >
                 <span
-                  className={`cursor-pointer ${
+                  className={`cursor-pointer list_item text-2xl ${
                     crossedIngredients.includes(item)
                       ? "line-through text-gray-500"
                       : "text-black"

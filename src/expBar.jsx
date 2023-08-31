@@ -61,15 +61,15 @@ const ExperienceBar = () => {
       <div>
         <div
           style={{ width: "100px", backgroundColor: "#ccc" }}
-          className="flex relative"
+          className="flex relative rounded-md"
         >
-          <p className="text-sm absolute left-8">
+          <p className="text-sm absolute left-5">
             {exp} / {expToNextLevel}
           </p>
           <div
+            className="rounded-md bg-lime-600"
             style={{
               width: `${progress}%`,
-              backgroundColor: "green",
               height: "20px",
             }}
           ></div>

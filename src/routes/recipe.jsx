@@ -136,13 +136,13 @@ const RecipeBook = () => {
       : recipes;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-center text-lg mt-2">
+    <div className="flex flex-col sm:flex-row sm:justify-center text-sm mt-2 overflow-x-hidden">
       <div className="flex flex-row m-8 justify-around h-96 sm:h-screen sm:gap-2 animate__animated animate__fadeInLeft">
         <div className="ingredient-list flex flex-col border rounded-l-md sm:border-8 bg-white w-1/2 sm:w-64 overflow-x-hidden">
           <h3 className="m-1 self-center">Усі інгредієнти:</h3>
           <input
             type="text"
-            placeholder="Пошук інгредієнта"
+            placeholder="Пошук..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="border-2 rounded-xl pl-2 mb-2 w-11/12 self-center"
@@ -153,7 +153,7 @@ const RecipeBook = () => {
               onClick={() => handleIngredientClick(ingredient)}
               className={`cursor-pointer ${ingredientStyle(
                 ingredient
-              )} p-2 sm:p-0 m-1 text-center rounded-xl bg-amber-300`}
+              )} p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-amber-300`}
             >
               {ingredient}
             </p>

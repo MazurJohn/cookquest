@@ -20,7 +20,7 @@ export default function Root({ missingIngredients }) {
   const [admin, setAdmin] = useState(false);
   const [showShoppingListIndicator, setShowShoppingListIndicator] =
     useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
   const usersRef = ref(database, "user");
 
   const toggleMobileMenu = () => {
@@ -78,15 +78,17 @@ export default function Root({ missingIngredients }) {
 
   return (
     <>
-      <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between">
+      <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between overflow-x-hidden">
         <div className="flex flex-row justify-between items-center w-full">
-          <Link to={`/cookquest`} className="logo p-5 pb-0 text-2xl relative">
+          <Link to={`/cookquest`} className="logo p-5 pb-0 relative">
             <img
               src={Logo}
               alt="Logo"
               className="h-12 w-12 absolute z-10 top-0 left-5"
             />
-            <span className="text-white text-3xl z-20 relative">CookQuest</span>
+            <span id="logo" className="text-white text-3xl z-20 relative">
+              CookQuest
+            </span>
           </Link>
           <div className="sm:hidden">
             <button
@@ -107,16 +109,16 @@ export default function Root({ missingIngredients }) {
             isMobileMenuOpen
               ? "block animate__fadeInRightBig"
               : "hidden animate__fadeOutLeftBig"
-          } sm:flex sm:flex-row justify-end sm:w-full text-center text-lg leading-4 animate__animated`}
+          } sm:flex sm:flex-row justify-end sm:w-full text-center leading-4 animate__animated`}
         >
-          <ul className="flex flex-row text-center text-lg leading-4">
-            <li className="p-3">
+          <ul className="flex flex-row text-center items-center text-sm leading-4">
+            <li className="p-2">
               <Link to={`info`}>Інфо</Link>
             </li>
-            <li className="p-3">
+            <li className="p-2">
               <Link to={`recipe`}>Книга рецептів</Link>
             </li>
-            <li className="p-3 relative">
+            <li className="p-2 relative">
               <Link
                 to={`shoppingList`}
                 onClick={() => setShowShoppingListIndicator(false)}
@@ -127,10 +129,10 @@ export default function Root({ missingIngredients }) {
                 )}
               </Link>
             </li>
-            <li className="p-3">
+            <li className="p-2">
               <Link to={`addRecipe`}>Додати рецепт</Link>
             </li>
-            <li className="p-3">
+            <li className="p-2">
               {anonymous ? (
                 <button onClick={signInWithGoogle}>Увійти з Google</button>
               ) : (

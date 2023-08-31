@@ -28,32 +28,35 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       console.log(result);
-      addNewUserToDb(result.user);
+
+      checkIfUserExists(result.user.uid)
+        .then((exists) => {
+          if (!exists) {
+            addNewUserToDb(result.user);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
+async function checkIfUserExists(uid) {
+  const userSnapshot = await get(ref(database, "user/" + uid));
+  return userSnapshot.exists();
+}
+
 function addNewUserToDb(user) {
   update(ref(database, "user/" + user.uid), {
     userName: user.displayName,
     userPhoto: user.photoURL,
     isAdmin: false,
-    // tasks: {
-    //   first: {
-    //     completed: false,
-    //     lastUpdated: timestamp,
-    //   },
-    //   second: {
-    //     completed: false,
-    //     lastUpdated: timestamp,
-    //   },
-    //   third: {
-    //     completed: false,
-    //     lastUpdated: timestamp,
-    //   },
-    // },
+    level: 1,
+    exp: 0,
+    expToNextLevel: 100,
   });
 }
 

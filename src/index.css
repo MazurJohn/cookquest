@@ -2,10 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import url("https://fonts.googleapis.com/css2?family=Handjet:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Handjet:wght@500&family=Montserrat+Alternates:wght@400;800&display=swap");
 
 * {
-  font-family: "Handjet", cursive;
+  font-family: "Montserrat Alternates", sans-serif;
 }
 
 #detail {
@@ -14,4 +14,11 @@
   background-size: 80px 80px;
   background-position: 0 0, 40px 40px;
   background-color: #ffffff;
+}
+#logo {
+  font-family: "Handjet", cursive;
+}
+
+.list_item {
+  font-family: "Caveat", cursive;
 }
