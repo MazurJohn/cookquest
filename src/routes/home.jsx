@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Spaghetti from "../assets/Spaghetti.png";
+import Donut from "../assets/Donut.png";
 
 export default function Home() {
   return (
@@ -14,7 +16,7 @@ export default function Home() {
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
           <div className="bg-blue-500 text-white p-6 rounded-md border-8 relative">
             <img
-              src="src/assets/Spaghetti.png"
+              src={Spaghetti}
               alt="Spaghetti"
               className="absolute w-24 h-24 -right-3 -top-10 animate__animated animate__pulse animate__slower animate__infinite"
             />
@@ -31,7 +33,7 @@ export default function Home() {
           </div>
           <div className="bg-green-500 text-white p-6 rounded-md border-8 relative">
             <img
-              src="src/assets/Donut.png"
+              src={Donut}
               alt="Donut"
               className="absolute w-20 h-20 -right-3 -top-5 animate__animated animate__pulse animate__slower animate__infinite animate__delay-2s"
             />

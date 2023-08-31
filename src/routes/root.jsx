@@ -10,6 +10,8 @@ import Admin from "./admin";
 import ExperienceBar from "../expBar";
 import ShoppingList from "./shoppingList";
 import Logo from "../assets/Bowl of rice.png";
+import StateClosed from "../assets/StateClosed.png";
+import StateOpen from "../assets/StateOpen.png";
 
 export default function Root({ missingIngredients }) {
   const [anonymous, setAnonymous] = useState(true);
@@ -92,17 +94,9 @@ export default function Root({ missingIngredients }) {
               className="p-4 focus:outline-none"
             >
               {!isMobileMenuOpen ? (
-                <img
-                  className="w-8 h-8"
-                  src="src/assets/StateClosed.png"
-                  alt="BC"
-                />
+                <img className="w-8 h-8" src={StateClosed} alt="BC" />
               ) : (
-                <img
-                  className="w-8 h-8"
-                  src="src/assets/StateOpen.png"
-                  alt="BO"
-                />
+                <img className="w-8 h-8" src={StateOpen} alt="BO" />
               )}
             </button>
           </div>
