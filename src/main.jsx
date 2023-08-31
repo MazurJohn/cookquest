@@ -13,7 +13,7 @@ import "./index.css";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/cookquest",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
