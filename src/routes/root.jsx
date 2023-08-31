@@ -9,6 +9,7 @@ import AddRecipe from "./addRecipe";
 import Admin from "./admin";
 import ExperienceBar from "../expBar";
 import ShoppingList from "./shoppingList";
+import Logo from "..assets/Bowl of rice.png";
 
 export default function Root({ missingIngredients }) {
   const [anonymous, setAnonymous] = useState(true);
@@ -77,9 +78,9 @@ export default function Root({ missingIngredients }) {
     <>
       <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between">
         <div className="flex flex-row justify-between items-center w-full">
-          <Link to={`/`} className="logo p-5 pb-0 text-2xl relative">
+          <Link to={`/cookquest`} className="logo p-5 pb-0 text-2xl relative">
             <img
-              src="src/assets/Bowl of rice.png"
+              src={Logo}
               alt="Logo"
               className="h-12 w-12 absolute z-10 top-0 left-5"
             />
