@@ -34,14 +34,29 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       console.log(result);
-      addNewUserToDb(result.user);
+
+      checkAndAddUser(result.user);
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
-function addNewUserToDb(user) {
+async function checkAndAddUser(user) {
+  const userRef = ref(database, "user/" + user.uid);
+
+  try {
+    const snapshot = await get(userRef);
+
+    if (!snapshot.exists()) {
+      addUserToDb(user);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function addUserToDb(user) {
   set(ref(database, "user/" + user.uid), {
     userName: user.displayName,
     userPhoto: user.photoURL,
