@@ -45,7 +45,8 @@ export const signInWithGoogle = () => {
 };
 
 async function checkIfUserExists(uid) {
-  const userSnapshot = await get(ref(database, "user/" + uid));
+  const userRef = ref(database, "user/" + uid);
+  const userSnapshot = await get(userRef);
   return userSnapshot.exists();
 }
 
