@@ -9,7 +9,7 @@ import AddRecipe from "./addRecipe";
 import Admin from "./admin";
 import ExperienceBar from "../expBar";
 import ShoppingList from "./shoppingList";
-import Logo from "..assets/Bowl of rice.png";
+import Logo from "../assets/Bowl of rice.png";
 
 export default function Root({ missingIngredients }) {
   const [anonymous, setAnonymous] = useState(true);
