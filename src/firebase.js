@@ -29,25 +29,27 @@ export const signInWithGoogle = () => {
     .then((result) => {
       console.log(result);
 
-      checkIfUserExists(result.user.uid)
-        .then((exists) => {
-          if (!exists) {
-            addNewUserToDb(result.user);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      checkAndAddUser(result.user);
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
-async function checkIfUserExists(uid) {
-  const userRef = ref(database, "user/" + uid);
-  const userSnapshot = await get(userRef);
-  return userSnapshot.exists();
+async function checkAndAddUser(user) {
+  const db = getDatabase();
+  const userRef = ref(db, "user/" + user.uid);
+
+  try {
+    const snapshot = await get(userRef);
+
+    if (!snapshot.exists()) {
+      // Якщо дані користувача відсутні, додаємо їх
+      addNewUserToDb(user);
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function addNewUserToDb(user) {

@@ -43,7 +43,7 @@ const InfoList = () => {
 
   return (
     <div className="flex justify-center mt-10 animate__animated animate__fadeInUp">
-      <div className="w-96 bg-amber-300 rounded-md border-8">
+      <div className="w-11/12 sm:w-96 pr-5 pl-5 bg-amber-300 rounded-md border-8">
         {user ? (
           <>
             <h2 className="text-xl text-center font-semibold m-4">
