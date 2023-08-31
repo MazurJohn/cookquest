@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, update, runTransaction } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  update,
+  set,
+  runTransaction,
+} from "firebase/database";
 import {
   getAuth,
   signOut,
@@ -28,32 +34,15 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       console.log(result);
-
-      checkAndAddUser(result.user);
+      addNewUserToDb(result.user);
     })
     .catch((error) => {
       console.log(error);
     });
 };
 
-async function checkAndAddUser(user) {
-  const db = getDatabase();
-  const userRef = ref(db, "user/" + user.uid);
-
-  try {
-    const snapshot = await get(userRef);
-
-    if (!snapshot.exists()) {
-      // Якщо дані користувача відсутні, додаємо їх
-      addNewUserToDb(user);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function addNewUserToDb(user) {
-  update(ref(database, "user/" + user.uid), {
+  set(ref(database, "user/" + user.uid), {
     userName: user.displayName,
     userPhoto: user.photoURL,
     isAdmin: false,
