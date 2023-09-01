@@ -9,9 +9,9 @@ import AddRecipe from "./addRecipe";
 import Admin from "./admin";
 import ExperienceBar from "../expBar";
 import ShoppingList from "./shoppingList";
-import Logo from "../assets/Bowl of rice.png";
 import StateClosed from "../assets/StateClosed.png";
 import StateOpen from "../assets/StateOpen.png";
+import { Badge } from "@material-tailwind/react";
 
 export default function Root({ missingIngredients }) {
   const [anonymous, setAnonymous] = useState(true);
@@ -20,6 +20,7 @@ export default function Root({ missingIngredients }) {
   const [admin, setAdmin] = useState(false);
   const [showShoppingListIndicator, setShowShoppingListIndicator] =
     useState(false);
+  const [shoppingLength, setShoppingLength] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
   const usersRef = ref(database, "user");
 
@@ -55,6 +56,7 @@ export default function Root({ missingIngredients }) {
           if (shoppingList) {
             // Якщо список не пустий, показати індикатор
             setShowShoppingListIndicator(true);
+            setShoppingLength(shoppingList.length);
           } else {
             // Якщо список пустий, приховати індикатор
             setShowShoppingListIndicator(false);
@@ -80,13 +82,8 @@ export default function Root({ missingIngredients }) {
     <>
       <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between overflow-x-hidden">
         <div className="flex flex-row justify-between items-center w-full">
-          <Link to={`/cookquest`} className="logo p-5 pb-0 relative">
-            <img
-              src={Logo}
-              alt="Logo"
-              className="h-12 w-12 absolute z-10 top-0 left-5"
-            />
-            <span id="logo" className="text-white text-3xl z-20 relative">
+          <Link to={`/cookquest`} className="logo p-3 relative">
+            <span id="logo" className="text-4xl font-bold z-20 relative">
               CookQuest
             </span>
           </Link>
@@ -119,15 +116,24 @@ export default function Root({ missingIngredients }) {
               <Link to={`recipe`}>Книга рецептів</Link>
             </li>
             <li className="p-2 relative">
-              <Link
-                to={`shoppingList`}
-                onClick={() => setShowShoppingListIndicator(false)}
+              <Badge
+                className="w-3 h-3"
+                content={shoppingLength}
+                invisible={shoppingLength === 0 ? true : false}
               >
-                Список покупок
-                {showShoppingListIndicator && (
+                <Link
+                  to={`shoppingList`}
+                  onClick={() => {
+                    setShowShoppingListIndicator(false);
+                    setShoppingLength(0);
+                  }}
+                >
+                  Список покупок
+                  {/* {showShoppingListIndicator && (
                   <span className="w-2 h-2 sm:-mt-1 sm:-mr-0.5 bg-red-500 rounded-full absolute top-1/2 -translate-y-1/2 right-2"></span>
-                )}
-              </Link>
+                )} */}
+                </Link>
+              </Badge>
             </li>
             <li className="p-2">
               <Link to={`addRecipe`}>Додати рецепт</Link>
@@ -173,5 +179,12 @@ export default function Root({ missingIngredients }) {
 <Route path="admin" element={<Admin />} />;
 <Route
   path="shoppingList"
-  element={<ShoppingList onVisit={() => setShowShoppingListIndicator(false)} />}
+  element={
+    <ShoppingList
+      onVisit={() => {
+        setShowShoppingListIndicator(false);
+        setShoppingLength(0);
+      }}
+    />
+  }
 />;

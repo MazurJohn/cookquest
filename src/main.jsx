@@ -10,6 +10,7 @@ import ShoppingList from "./routes/shoppingList";
 import InfoList from "./routes/info";
 import Home from "./routes/home";
 import "./index.css";
+import { ThemeProvider } from "@material-tailwind/react";
 
 const router = createBrowserRouter([
   {
@@ -46,5 +47,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <ThemeProvider>
+    <RouterProvider router={router} />
+  </ThemeProvider>
 );

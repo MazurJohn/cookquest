@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getDatabase, ref, update, onValue, get } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { Tooltip } from "@material-tailwind/react";
 
 const RecipeBook = () => {
   const [recipes, setRecipes] = useState([]);
@@ -165,7 +166,7 @@ const RecipeBook = () => {
             <p
               key={index}
               onClick={() => handleIngredientClick(ingredient)}
-              className="cursor-pointer selected-ingredient p-2 sm:p-0 m-1 text-center rounded-xl bg-amber-300"
+              className="cursor-pointer selected-ingredient p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-amber-300"
             >
               {ingredient}
             </p>
@@ -221,15 +222,17 @@ const RecipeBook = () => {
               {recipe.ingredients.some(
                 (ingredient) => !selectedIngredients.has(ingredient)
               ) && (
-                <button
-                  className="bg-blue-500 self-center text-white px-4 py-2 rounded-sm border-b-8 border-blue-600 mt-2 hover:bg-blue-800 active:border-b-0 active:py-3 transition-all ease-in-out relative group"
-                  onClick={() => handleAddToShoppingList(recipe.ingredients)}
+                <Tooltip
+                  className="h-15 text-md"
+                  content="Додати невистачаючі інгредієнти у список покупок"
                 >
-                  Хочу приготувати!
-                  <span className="absolute bg-gray-800 text-white text-sm py-4 px-4 rounded-md mt-0 -right-52 -top-14 transform -translate-x-1/2 opacity-0 pointer-events-none transition-opacity ease-in-out duration-300 group-hover:opacity-100">
-                    Додати невистачаючі інгредієнти у список покупок
-                  </span>
-                </button>
+                  <button
+                    className="bg-blue-500 self-center text-white px-4 py-2 rounded-sm border-b-8 border-blue-600 mt-2 hover:bg-blue-800 active:border-b-0 active:py-3 transition-all ease-in-out relative group"
+                    onClick={() => handleAddToShoppingList(recipe.ingredients)}
+                  >
+                    Хочу приготувати!
+                  </button>
+                </Tooltip>
               )}
             </li>
           ))}
