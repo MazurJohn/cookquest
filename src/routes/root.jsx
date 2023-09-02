@@ -12,11 +12,13 @@ import ShoppingList from "./shoppingList";
 import StateClosed from "../assets/StateClosed.png";
 import StateOpen from "../assets/StateOpen.png";
 import { Badge } from "@material-tailwind/react";
+import { ComplexNavbar } from "../navbar";
 
 export default function Root({ missingIngredients }) {
   const [anonymous, setAnonymous] = useState(true);
   const [userName, setUserName] = useState("");
   const [userPhoto, setUserPhoto] = useState("");
+  const [userLevel, setUserLevel] = useState("");
   const [admin, setAdmin] = useState(false);
   const [showShoppingListIndicator, setShowShoppingListIndicator] =
     useState(false);
@@ -41,6 +43,7 @@ export default function Root({ missingIngredients }) {
               const userData = snapshot.val();
               setUserName(userData.userName);
               setUserPhoto(userData.userPhoto);
+              setUserLevel(userData.level);
               if (userData.isAdmin) {
                 setAdmin(true);
               }
@@ -80,6 +83,11 @@ export default function Root({ missingIngredients }) {
 
   return (
     <>
+      <ComplexNavbar
+        userphoto={userPhoto}
+        username={userName}
+        userlevel={userLevel}
+      />
       <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between overflow-x-hidden">
         <div className="flex flex-row justify-between items-center w-full">
           <Link to={`/cookquest`} className="logo p-3 relative">

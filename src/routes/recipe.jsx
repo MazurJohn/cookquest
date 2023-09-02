@@ -223,7 +223,7 @@ const RecipeBook = () => {
                 (ingredient) => !selectedIngredients.has(ingredient)
               ) && (
                 <Tooltip
-                  className="h-15 text-md"
+                  className="h-15 text-sm"
                   content="Додати невистачаючі інгредієнти у список покупок"
                 >
                   <button

@@ -81,7 +81,6 @@ export const addExperience = (userId, amount) => {
 export async function signOutFunc() {
   try {
     await signOut(auth);
-    location.reload();
     console.log("Користувач вийшов з системи");
   } catch (error) {
     console.log("Помилка під час виходу користувача:", error);
