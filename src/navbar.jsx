@@ -150,6 +150,7 @@ function NavList() {
           setShoppingLength(shoppingList.length);
         } else {
           setShowShoppingListIndicator(false);
+          setShoppingLength(0);
         }
       });
       return () => {
@@ -165,14 +166,7 @@ function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       {navListItems.map(({ label, icon, link }, key) => (
-        <Link
-          to={link}
-          key={label}
-          onClick={() => {
-            setShowShoppingListIndicator(false);
-            setShoppingLength(0);
-          }}
-        >
+        <Link to={link} key={label}>
           <Typography
             key={label}
             variant="small"
@@ -186,7 +180,7 @@ function NavList() {
                   invisible={shoppingLength === 0 ? true : false}
                 >
                   {React.createElement(icon, {
-                    className: "h-[18px] w-[18px]",
+                    className: "h-[18px] w-[18px] mr-2",
                   })}{" "}
                   {label}
                 </Badge>
@@ -223,6 +217,7 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
           setShoppingLength(shoppingList.length);
         } else {
           setShowShoppingListIndicator(false);
+          setShoppingLength(0);
         }
       });
       return () => {
@@ -261,13 +256,7 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
           className="ml-auto mr-2 lg:hidden"
         >
           <Badge invisible={shoppingLength === 0 ? true : false}>
-            <Bars2Icon
-              className="h-6 w-6"
-              onClick={() => {
-                setShowShoppingListIndicator(false);
-                setShoppingLength(0);
-              }}
-            />
+            <Bars2Icon className="h-6 w-6" />
           </Badge>
         </IconButton>
         {user ? (
