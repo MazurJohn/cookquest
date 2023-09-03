@@ -88,7 +88,7 @@ export default function Root({ missingIngredients }) {
         username={userName}
         userlevel={userLevel}
       />
-      <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between overflow-x-hidden">
+      {/* <div className="flex bg-amber-400 flex-col sm:flex-row items-center justify-between overflow-x-hidden">
         <div className="flex flex-row justify-between items-center w-full">
           <Link to={`/cookquest`} className="logo p-3 relative">
             <span id="logo" className="text-4xl font-bold z-20 relative">
@@ -124,24 +124,14 @@ export default function Root({ missingIngredients }) {
               <Link to={`recipe`}>Книга рецептів</Link>
             </li>
             <li className="p-2 relative">
-              <Badge
-                className="w-3 h-3"
-                content={shoppingLength}
-                invisible={shoppingLength === 0 ? true : false}
+              <Link
+                to={`shoppingList`}
+                onClick={() => {
+                  setShowShoppingListIndicator(false);
+                  setShoppingLength(0);
+                }}
               >
-                <Link
-                  to={`shoppingList`}
-                  onClick={() => {
-                    setShowShoppingListIndicator(false);
-                    setShoppingLength(0);
-                  }}
-                >
-                  Список покупок
-                  {/* {showShoppingListIndicator && (
-                  <span className="w-2 h-2 sm:-mt-1 sm:-mr-0.5 bg-red-500 rounded-full absolute top-1/2 -translate-y-1/2 right-2"></span>
-                )} */}
-                </Link>
-              </Badge>
+              </Link>
             </li>
             <li className="p-2">
               <Link to={`addRecipe`}>Додати рецепт</Link>
@@ -155,7 +145,7 @@ export default function Root({ missingIngredients }) {
             </li>
           </ul>
         </nav>
-      </div>
+      </div> */}
       {userName ? (
         <div className="flex flex-row justify-center bg-amber-300 pt-2 pb-1">
           {admin ? (

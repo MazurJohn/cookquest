@@ -11,6 +11,7 @@ import {
   Card,
   IconButton,
   Collapse,
+  Badge,
 } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
@@ -29,7 +30,8 @@ import { Link } from "react-router-dom";
 import { signInWithGoogle } from "./firebase";
 import { signOutFunc } from "./firebase";
 import { useState, useEffect } from "react";
-import { auth } from "./firebase";
+import { auth, database } from "./firebase";
+import { ref, get, child, onValue } from "firebase/database";
 
 // profile menu component
 const profileMenuItems = [
@@ -133,20 +135,68 @@ const navListItems = [
 ];
 
 function NavList() {
+  const [showShoppingListIndicator, setShowShoppingListIndicator] =
+    useState(false);
+  const [shoppingLength, setShoppingLength] = useState(0);
+  const usersRef = ref(database, "user");
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      const shoppingListRef = child(usersRef, `${user.uid}/shoppingList`);
+      const shoppingListUnsubscribe = onValue(shoppingListRef, (snapshot) => {
+        const shoppingList = snapshot.val();
+        if (shoppingList) {
+          setShowShoppingListIndicator(true);
+          setShoppingLength(shoppingList.length);
+        } else {
+          setShowShoppingListIndicator(false);
+        }
+      });
+      return () => {
+        shoppingListUnsubscribe();
+      };
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [auth]);
+
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       {navListItems.map(({ label, icon, link }, key) => (
-        <Link to={link} key={label}>
+        <Link
+          to={link}
+          key={label}
+          onClick={() => {
+            setShowShoppingListIndicator(false);
+            setShoppingLength(0);
+          }}
+        >
           <Typography
             key={label}
             variant="small"
             color="blue-gray"
             className="font-normal"
           >
-            <MenuItem className="flex items-center gap-2 lg:rounded-full">
-              {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-              {label}
-            </MenuItem>
+            {label === "Список покупок" ? (
+              <MenuItem className="flex items-center gap-2 lg:rounded-full">
+                <Badge
+                  content={shoppingLength}
+                  invisible={shoppingLength === 0 ? true : false}
+                >
+                  {React.createElement(icon, {
+                    className: "h-[18px] w-[18px]",
+                  })}{" "}
+                  {label}
+                </Badge>
+              </MenuItem>
+            ) : (
+              <MenuItem className="flex items-center gap-2 lg:rounded-full">
+                {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
+                {label}
+              </MenuItem>
+            )}
           </Typography>
         </Link>
       ))}
@@ -157,15 +207,30 @@ function NavList() {
 export function ComplexNavbar({ userphoto, username, userlevel }) {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const [user, setUser] = useState(null);
+  const [showShoppingListIndicator, setShowShoppingListIndicator] =
+    useState(false);
+  const [shoppingLength, setShoppingLength] = useState(0);
+  const usersRef = ref(database, "user");
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      // Якщо користувач авторизований, то user буде не-null, інакше - null.
       setUser(user);
+      const shoppingListRef = child(usersRef, `${user.uid}/shoppingList`);
+      const shoppingListUnsubscribe = onValue(shoppingListRef, (snapshot) => {
+        const shoppingList = snapshot.val();
+        if (shoppingList) {
+          setShowShoppingListIndicator(true);
+          setShoppingLength(shoppingList.length);
+        } else {
+          setShowShoppingListIndicator(false);
+        }
+      });
+      return () => {
+        shoppingListUnsubscribe();
+      };
     });
 
     return () => {
-      // Приберіть підписку на події при розмонтуванні компоненту.
       unsubscribe();
     };
   }, [auth]);
@@ -182,24 +247,28 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 rounded-none">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-        >
-          Material Tailwind
+        <Typography className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
+          <Link to="/cookquest">CookQuest</Link>
         </Typography>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
         <IconButton
-          size="sm"
+          size="md"
           color="blue-gray"
           variant="text"
           onClick={toggleIsNavOpen}
           className="ml-auto mr-2 lg:hidden"
         >
-          <Bars2Icon className="h-6 w-6" />
+          <Badge invisible={shoppingLength === 0 ? true : false}>
+            <Bars2Icon
+              className="h-6 w-6"
+              onClick={() => {
+                setShowShoppingListIndicator(false);
+                setShoppingLength(0);
+              }}
+            />
+          </Badge>
         </IconButton>
         {user ? (
           <ProfileMenu
