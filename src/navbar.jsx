@@ -139,7 +139,7 @@ const navListItems = [
   },
 ];
 
-function NavList() {
+function NavList({ toggleNav }) {
   const [showShoppingListIndicator, setShowShoppingListIndicator] =
     useState(false);
   const [shoppingLength, setShoppingLength] = useState(0);
@@ -171,7 +171,7 @@ function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       {navListItems.map(({ label, icon, link }, key) => (
-        <Link to={link} key={label}>
+        <Link to={link} key={label} onClick={toggleNav}>
           <Typography
             key={label}
             variant="small"
@@ -283,7 +283,7 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
         )}
       </div>
       <Collapse open={isNavOpen} className="overflow-scroll">
-        <NavList />
+        <NavList toggleNav={toggleIsNavOpen} />
       </Collapse>
     </Navbar>
   );

@@ -1,4 +1,5 @@
 import { Carousel, Typography, Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export function CarouselWithContent() {
   return (
@@ -11,21 +12,21 @@ export function CarouselWithContent() {
               color="black"
               className="mb-4 text-3xl md:text-4xl lg:text-5xl"
             >
-              The Beauty of Nature
+              Пошук рецептів
             </Typography>
             <Typography
               variant="lead"
               color="black"
               className="mb-12 opacity-80"
             >
-              It is not so much for its beauty that the forest makes a claim
-              upon men&apos;s hearts, as for that subtle something, that quality
-              of air that emanation from old trees, that so wonderfully changes
-              and renews a weary spirit.
+              Знайдіть рецепти за наявними інгредієнтами! В нашому додатку ви
+              можете шукати рецепти, виходячи зі списку інгредієнтів, які у вас
+              є в наявності. Швидко та легко знайдіть ідеї для приготування
+              смачних страв, не виходячи з дому.
             </Typography>
             <div className="flex justify-center gap-2">
               <Button size="lg" color="amber">
-                Explore
+                <Link to="recipe">Пошук</Link>
               </Button>
             </div>
           </div>
@@ -39,21 +40,21 @@ export function CarouselWithContent() {
               color="black"
               className="mb-4 text-3xl md:text-4xl lg:text-5xl"
             >
-              The Beauty of Nature
+              Список покупок
             </Typography>
             <Typography
               variant="lead"
               color="black"
               className="mb-12 opacity-80"
             >
-              It is not so much for its beauty that the forest makes a claim
-              upon men&apos;s hearts, as for that subtle something, that quality
-              of air that emanation from old trees, that so wonderfully changes
-              and renews a weary spirit.
+              Немає всіх необхідних інгредієнтів для рецепту? Це не проблема!
+              Наш додаток дозволяє легко додати відсутні компоненти до списку
+              покупок одним кліком. Так ви зможете зручно планувати свої покупки
+              та готувати улюблені страви.
             </Typography>
             <div className="flex justify-center gap-2">
               <Button size="lg" color="amber">
-                Explore
+                <Link to="shoppingList">Список</Link>
               </Button>
             </div>
           </div>
@@ -67,21 +68,21 @@ export function CarouselWithContent() {
               color="black"
               className="mb-4 text-3xl md:text-4xl lg:text-5xl"
             >
-              The Beauty of Nature
+              Авторські рецепти
             </Typography>
             <Typography
               variant="lead"
               color="black"
               className="mb-12 opacity-80"
             >
-              It is not so much for its beauty that the forest makes a claim
-              upon men&apos;s hearts, as for that subtle something, that quality
-              of air that emanation from old trees, that so wonderfully changes
-              and renews a weary spirit.
+              Ваша авторська кулінарна майстерність також цінна! Ви можете
+              створювати та додавати свої унікальні рецепти до нашого додатку.
+              Поділіться смаколиками з іншими користувачами та знайомтесь з
+              безліччю смачних ідей від інших кулінарів.
             </Typography>
             <div className="flex justify-center gap-2">
               <Button size="lg" color="amber">
-                Explore
+                <Link to="addRecipe">Додати</Link>
               </Button>
             </div>
           </div>
