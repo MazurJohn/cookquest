@@ -146,7 +146,7 @@ export default function Root({ missingIngredients }) {
           </ul>
         </nav>
       </div> */}
-      {userName ? (
+      {/* {userName ? (
         <div className="flex flex-row justify-center bg-amber-300 pt-2 pb-1">
           {admin ? (
             <Link to={`admin`} className="mr-2">
@@ -165,7 +165,7 @@ export default function Root({ missingIngredients }) {
         </div>
       ) : (
         <div></div>
-      )}
+      )} */}
       <div id="detail" className="min-h-screen flex justify-center items-start">
         <Outlet />
       </div>

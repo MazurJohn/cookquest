@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { ref, get, onValue, update } from "firebase/database";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { database } from "./firebase";
+import { Link } from "react-router-dom";
 
 const ExperienceBar = () => {
   const [userData, setUserData] = useState(null);
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     const auth = getAuth();
@@ -17,6 +19,9 @@ const ExperienceBar = () => {
           .then((snapshot) => {
             if (snapshot.exists()) {
               const userData = snapshot.val();
+              if (userData.isAdmin) {
+                setAdmin(true);
+              }
               setUserData(userData);
             }
           })
@@ -57,6 +62,13 @@ const ExperienceBar = () => {
 
   return (
     <div className="flex">
+      {admin ? (
+        <Link to={`/cookquest/admin`} className="mr-2">
+          Admin
+        </Link>
+      ) : (
+        <div></div>
+      )}
       <h3 className="mr-2">Рівень: {level}</h3>
       <div>
         <div

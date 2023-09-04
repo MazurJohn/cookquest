@@ -25,6 +25,9 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
+  BookOpenIcon,
+  ListBulletIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { signInWithGoogle } from "./firebase";
@@ -77,9 +80,9 @@ function ProfileMenu({ userphoto, username, userlevel }) {
         </Button>
       </MenuHandler>
       <MenuList className="p-1 border-t-0 rounded-t-none">
-        <span className="pl-4 font-semibold">
+        <p className="pl-4 pb-2 pt-2 font-semibold">
           {username} ({userlevel}-й lvl)
-        </span>
+        </p>
         {profileMenuItems.map(({ label, icon, link, signOut }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           const onClickHandler = signOut ? signOutFunc : undefined;
@@ -119,17 +122,17 @@ function ProfileMenu({ userphoto, username, userlevel }) {
 const navListItems = [
   {
     label: "Книга рецептів",
-    icon: UserCircleIcon,
+    icon: BookOpenIcon,
     link: "recipe",
   },
   {
     label: "Список покупок",
-    icon: CubeTransparentIcon,
+    icon: ListBulletIcon,
     link: "shoppingList",
   },
   {
     label: "Додати рецепт",
-    icon: CodeBracketSquareIcon,
+    icon: PlusCircleIcon,
     link: "addRecipe",
   },
 ];
@@ -187,8 +190,12 @@ function NavList() {
               </MenuItem>
             ) : (
               <MenuItem className="flex items-center gap-2 lg:rounded-full">
-                {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
-                {label}
+                <Badge invisible={true}>
+                  {React.createElement(icon, {
+                    className: "h-[18px] w-[18px] mr-2",
+                  })}{" "}
+                  {label}
+                </Badge>
               </MenuItem>
             )}
           </Typography>
@@ -243,7 +250,9 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
     <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 rounded-none">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
-          <Link to="/cookquest">CookQuest</Link>
+          <Link id="logo" className="text-3xl font-semibold" to="/cookquest">
+            CookQuest
+          </Link>
         </Typography>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
