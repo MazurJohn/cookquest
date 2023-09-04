@@ -7,11 +7,7 @@ import { signInWithGoogle } from "../firebase";
 import { signOutFunc } from "../firebase";
 import AddRecipe from "./addRecipe";
 import Admin from "./admin";
-import ExperienceBar from "../expBar";
 import ShoppingList from "./shoppingList";
-import StateClosed from "../assets/StateClosed.png";
-import StateOpen from "../assets/StateOpen.png";
-import { Badge } from "@material-tailwind/react";
 import { ComplexNavbar } from "../navbar";
 
 export default function Root({ missingIngredients }) {

@@ -61,7 +61,7 @@ function ProfileMenu({ userphoto, username, userlevel }) {
         <Button
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto text-black"
         >
           <Avatar
             userphoto={userphoto}
@@ -73,14 +73,14 @@ function ProfileMenu({ userphoto, username, userlevel }) {
           />
           <ChevronDownIcon
             strokeWidth={2.5}
-            className={`h-3 w-3 transition-transform ${
+            className={`h-3 w-3 transition-transform text-black ${
               isMenuOpen ? "rotate-180" : ""
             }`}
           />
         </Button>
       </MenuHandler>
-      <MenuList className="p-1 border-t-0 rounded-t-none">
-        <p className="pl-4 pb-2 pt-2 font-semibold">
+      <MenuList className="p-1 border-t-0 rounded-t-none bg-amber-400">
+        <p className="pl-4 pb-2 pt-2 font-semibold text-black">
           {username} ({userlevel}-й lvl)
         </p>
         {profileMenuItems.map(({ label, icon, link, signOut }, key) => {
@@ -98,14 +98,16 @@ function ProfileMenu({ userphoto, username, userlevel }) {
                 }`}
               >
                 {React.createElement(icon, {
-                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  className: `h-4 w-4 ${
+                    isLastItem ? "text-red-500" : "text-black"
+                  }`,
                   strokeWidth: 2,
                 })}
                 <Typography
                   as="span"
                   variant="small"
                   className="font-normal"
-                  color={isLastItem ? "red" : "inherit"}
+                  color={isLastItem ? "red" : "black"}
                 >
                   {label}
                 </Typography>
@@ -173,8 +175,8 @@ function NavList() {
           <Typography
             key={label}
             variant="small"
-            color="blue-gray"
-            className="font-normal"
+            color="black"
+            className="font-normal text-lg"
           >
             {label === "Список покупок" ? (
               <MenuItem className="flex items-center gap-2 lg:rounded-full">
@@ -183,7 +185,7 @@ function NavList() {
                   invisible={shoppingLength === 0 ? true : false}
                 >
                   {React.createElement(icon, {
-                    className: "h-[18px] w-[18px] mr-2",
+                    className: "h-[22px] w-[22px] mr-2",
                   })}{" "}
                   {label}
                 </Badge>
@@ -192,7 +194,7 @@ function NavList() {
               <MenuItem className="flex items-center gap-2 lg:rounded-full">
                 <Badge invisible={true}>
                   {React.createElement(icon, {
-                    className: "h-[18px] w-[18px] mr-2",
+                    className: "h-[22px] w-[22px] mr-2",
                   })}{" "}
                   {label}
                 </Badge>
@@ -247,7 +249,7 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:pl-6 rounded-none">
+    <Navbar className="mx-auto max-w-full p-2 lg:pl-6 rounded-none rounded-b-2xl sm:rounded-b-none shadow-none bg-amber-500 border-none">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Typography className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
           <Link id="logo" className="text-3xl font-semibold" to="/cookquest">
@@ -265,7 +267,7 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
           className="ml-auto mr-2 lg:hidden"
         >
           <Badge invisible={shoppingLength === 0 ? true : false}>
-            <Bars2Icon className="h-6 w-6" />
+            <Bars2Icon className="h-6 w-6 text-black" />
           </Badge>
         </IconButton>
         {user ? (
