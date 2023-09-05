@@ -8,6 +8,10 @@
   font-family: "Montserrat Alternates", sans-serif;
 }
 
+#detail {
+  background: rgb(255, 249, 196);
+}
+
 #logo {
   font-family: "Tulpen One", cursive;
 }

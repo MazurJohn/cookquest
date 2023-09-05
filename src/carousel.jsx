@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function CarouselWithContent() {
   return (
-    <Carousel className="" autoplay={true} loop={true}>
+    <Carousel className="" autoplay={true} loop={true} autoplayDelay={10000}>
       <div className="relative h-full w-full">
         <div className="absolute inset-0 grid h-full w-full place-items-center">
           <div className="w-3/4 text-center md:w-2/4">

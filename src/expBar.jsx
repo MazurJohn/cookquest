@@ -79,7 +79,7 @@ const ExperienceBar = () => {
             {exp} / {expToNextLevel}
           </p>
           <div
-            className="rounded-md bg-lime-600"
+            className="rounded-md bg-amber-500"
             style={{
               width: `${progress}%`,
               height: "20px",

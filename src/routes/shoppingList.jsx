@@ -10,6 +10,7 @@ import {
 } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { Button } from "@material-tailwind/react";
 
 const ShoppingList = () => {
   const [shoppingList, setShoppingList] = useState([]);
@@ -74,8 +75,10 @@ const ShoppingList = () => {
 
   return (
     <div className="flex flex-col items-center mt-10 animate__animated animate__fadeInUp">
-      <h2 className="text-xl font-semibold mb-4 bg-white">Список покупок</h2>
-      <div className="flex justify-center w-56 text-lg bg-white">
+      <h2 className="text-xl font-semibold mb-4 bg-yellow-100">
+        Список покупок
+      </h2>
+      <div className="flex justify-center w-56 text-lg bg-yellow-100">
         {shoppingList.length === 0 ? (
           <p>Список порожній</p>
         ) : (
@@ -107,12 +110,9 @@ const ShoppingList = () => {
         )}
       </div>
       {shoppingList.length > 0 && (
-        <button
-          onClick={handleClearList}
-          className="bg-orange-500 text-white px-4 py-2 rounded-sm border-b-8 border-orange-600 mt-2 hover:bg-orange-800 active:border-b-0 active:py-3 transition-all ease-in-out"
-        >
+        <Button className="mt-5" color="red" onClick={handleClearList}>
           Очистити список
-        </button>
+        </Button>
       )}
     </div>
   );

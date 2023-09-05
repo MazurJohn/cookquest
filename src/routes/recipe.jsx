@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getDatabase, ref, update, onValue, get } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
-import { Tooltip } from "@material-tailwind/react";
+import { Tooltip, Card, CardBody, Button } from "@material-tailwind/react";
 
 const RecipeBook = () => {
   const [recipes, setRecipes] = useState([]);
@@ -120,7 +120,9 @@ const RecipeBook = () => {
     selectedIngredients.has(ingredient);
 
   const ingredientStyle = (ingredient) => {
-    return isIngredientSelected(ingredient) ? "text-lime-600" : "";
+    return isIngredientSelected(ingredient)
+      ? "text-blue-400 font-semibold"
+      : "";
   };
 
   const filteredIngredients = Array.from(allIngredients).filter((ingredient) =>
@@ -139,7 +141,7 @@ const RecipeBook = () => {
   return (
     <div className="flex flex-col sm:flex-row sm:justify-center text-sm mt-2 overflow-x-hidden">
       <div className="flex flex-row m-8 justify-around h-96 sm:h-screen sm:gap-2 animate__animated animate__fadeInLeft">
-        <div className="ingredient-list flex flex-col border rounded-l-md sm:border-8 bg-white w-1/2 sm:w-64 overflow-x-hidden">
+        <div className="ingredient-list flex flex-col border rounded-l-md sm:border-2 bg-white w-1/2 sm:w-64 overflow-x-hidden">
           <h3 className="m-1 self-center">Усі інгредієнти:</h3>
           <input
             type="text"
@@ -160,7 +162,7 @@ const RecipeBook = () => {
             </p>
           ))}
         </div>
-        <div className="selected-ingredients flex flex-col border rounded-r-md sm:border-8 bg-white w-1/2 sm:w-64 overflow-x-hidden">
+        <div className="selected-ingredients flex flex-col border rounded-r-md sm:border-2 bg-white w-1/2 sm:w-64 overflow-x-hidden">
           <h3 className="m-1 self-center">Обрані:</h3>
           {Array.from(selectedIngredients).map((ingredient, index) => (
             <p
@@ -179,61 +181,74 @@ const RecipeBook = () => {
           {filteredRecipes.slice(0, visibleRecipeCount).map((recipe, index) => (
             <li
               key={index}
-              className="bg-amber-300 mb-5 w-full sm:w-96 flex flex-col p-4 border-8 rounded-md gap-3"
+              className="mb-5 w-full sm:w-96 flex flex-col p-4 gap-3"
             >
-              <h4 className="text-2xl">
-                {recipe.name} (від{" "}
-                <span className="text-sky-600">
-                  {users[recipe.userId]?.userName || "Анонімний користувач"}
-                </span>
-                )
-              </h4>
-              <p>Категорія: {recipe.category}</p>
-              <p className="bg-yellow-100 rounded-md pl-2">
-                Інгредієнти:{" "}
-                {recipe.ingredients.map((ingredient, i) => (
-                  <span
-                    key={i}
-                    className={`ingredient ${ingredientStyle(ingredient)}`}
-                  >
-                    {ingredient}
-                    {i !== recipe.ingredients.length - 1 ? ", " : ""}
-                  </span>
-                ))}
-              </p>
-              <p>
-                Опис:{" "}
-                {recipe.description.length > 50 &&
-                expandedRecipeId === recipe.recipeId
-                  ? recipe.description
-                  : `${recipe.description.slice(0, 50)}...`}
-                {recipe.description.length > 50 && (
-                  <span
-                    className="text-blue-500 cursor-pointer"
-                    onClick={() => toggleExpandRecipe(recipe.recipeId)}
-                  >
-                    {expandedRecipeId === recipe.recipeId
-                      ? "Згорнути"
-                      : "Детальніше"}
-                  </span>
-                )}
-              </p>
-              <p>Додано: {new Date(recipe.timestamp).toLocaleString()}</p>
-              {recipe.ingredients.some(
-                (ingredient) => !selectedIngredients.has(ingredient)
-              ) && (
-                <Tooltip
-                  className="h-15 text-sm"
-                  content="Додати невистачаючі інгредієнти у список покупок"
-                >
-                  <button
-                    className="bg-blue-500 self-center text-white px-4 py-2 rounded-sm border-b-8 border-blue-600 mt-2 hover:bg-blue-800 active:border-b-0 active:py-3 transition-all ease-in-out relative group"
-                    onClick={() => handleAddToShoppingList(recipe.ingredients)}
-                  >
-                    Хочу приготувати!
-                  </button>
-                </Tooltip>
-              )}
+              <Card>
+                <CardBody className="flex flex-col gap-5 pb-3">
+                  <h4 className="text-2xl">{recipe.name}</h4>
+                  <p>
+                    <span className="underline">Категорія:</span>{" "}
+                    {recipe.category}
+                  </p>
+                  <p className="bg-yellow-100 rounded-md pl-2">
+                    <span className="underline">Інгредієнти:</span>{" "}
+                    {recipe.ingredients.map((ingredient, i) => (
+                      <span
+                        key={i}
+                        className={`ingredient ${ingredientStyle(ingredient)}`}
+                      >
+                        {ingredient}
+                        {i !== recipe.ingredients.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                  </p>
+                  <p>
+                    <span className="underline">Опис:</span>{" "}
+                    {recipe.description.length > 50 &&
+                    expandedRecipeId === recipe.recipeId
+                      ? recipe.description
+                      : `${recipe.description.slice(0, 50)}...`}
+                    {recipe.description.length > 50 && (
+                      <span
+                        className="text-blue-500 cursor-pointer"
+                        onClick={() => toggleExpandRecipe(recipe.recipeId)}
+                      >
+                        {expandedRecipeId === recipe.recipeId
+                          ? "Згорнути"
+                          : "Детальніше"}
+                      </span>
+                    )}
+                  </p>
+
+                  {recipe.ingredients.some(
+                    (ingredient) => !selectedIngredients.has(ingredient)
+                  ) && (
+                    <Tooltip
+                      className="h-15 text-sm text-center"
+                      content="Додати невистачаючі інгредієнти у список покупок"
+                    >
+                      <Button
+                        className="self-center"
+                        color="amber"
+                        onClick={() =>
+                          handleAddToShoppingList(recipe.ingredients)
+                        }
+                      >
+                        Хочу приготувати!
+                      </Button>
+                    </Tooltip>
+                  )}
+                  <div className="flex flex-row justify-between">
+                    <p>
+                      <span className="text-blue-600">
+                        {users[recipe.userId]?.userName ||
+                          "Анонімний користувач"}
+                      </span>
+                    </p>
+                    <p>{new Date(recipe.timestamp).toLocaleString()}</p>
+                  </div>
+                </CardBody>
+              </Card>
             </li>
           ))}
         </ul>
