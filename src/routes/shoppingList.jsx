@@ -18,21 +18,23 @@ const ShoppingList = () => {
   const [crossedIngredients, setCrossedIngredients] = useState([]);
 
   useEffect(() => {
-    const database = getDatabase();
-    const shoppingListRef = ref(database, `user/${user?.uid}`);
+    if (user) {
+      const database = getDatabase();
+      const shoppingListRef = ref(database, `user/${user?.uid}`);
 
-    const unsubscribeShoppingList = onValue(shoppingListRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data.shoppingList) {
-        setShoppingList(data.shoppingList);
-      } else {
-        setShoppingList([]);
-      }
-    });
+      const unsubscribeShoppingList = onValue(shoppingListRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data.shoppingList) {
+          setShoppingList(data.shoppingList);
+        } else {
+          setShoppingList([]);
+        }
+      });
 
-    return () => {
-      unsubscribeShoppingList();
-    };
+      return () => {
+        unsubscribeShoppingList();
+      };
+    }
   }, [user]);
 
   useEffect(() => {

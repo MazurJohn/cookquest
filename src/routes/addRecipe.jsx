@@ -3,6 +3,15 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ref, get, child, update } from "firebase/database";
 import { auth, database } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
+import {
+  Card,
+  CardBody,
+  Button,
+  Input,
+  Select,
+  Option,
+  Textarea,
+} from "@material-tailwind/react";
 
 export default function AddRecipe() {
   const [user, setUser] = useState(null);
@@ -57,23 +66,21 @@ export default function AddRecipe() {
   }
 
   return (
-    <div className="flex flex-col items-center mt-10 border-8 rounded-md bg-amber-300 sm:w-auto w-11/12 sm:h-auto pr-5 pl-5 sm:pr-10 sm:pl-10 animate__animated animate__fadeInUp">
-      <h1 className="text-2xl font-semibold m-4">Додати рецепт</h1>
+    <Card className="w-11/12 sm:w-96 mt-10">
+      <h1 className="text-2xl font-semibold m-4 text-center">Додати рецепт</h1>
       {user ? (
-        <div className="sm:w-96 w-full flex flex-col">
+        <CardBody className="flex flex-col">
           <div className="mb-4">
-            <label className="block mb-1">Назва:</label>
-            <input
+            <Input
+              label="Назва"
               type="text"
-              className="w-full border px-3 py-2 rounded-md"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label className="block mb-1">Категорія:</label>
+          <div>
             <select
-              className="w-full border px-3 py-2 rounded-md"
+              className="border border-blue-gray-200 w-full rounded-[7px] p-2"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -83,33 +90,36 @@ export default function AddRecipe() {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Інгредієнти:</label>
-            <input
+            <p className="text-gray-400 text-center text-[12px]">
+              Додавайте інгредієнти через кому: "цибуля, картопля, капуста"...
+            </p>
+            <Input
+              label="Інгредієнти"
               type="text"
-              placeholder="Розділяйте інгредієнти комою: 'Курка, картопля'..."
-              className="w-full border px-3 py-2 rounded-md"
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Опис:</label>
-            <textarea
-              className="w-full border px-3 py-2 rounded-md"
+            <Textarea
+              label="Опис"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          <button
+          <Button
+            className="self-center"
+            color="green"
             onClick={handleAddRecipe}
-            className="bg-blue-500 text-white px-4 self-center py-2 mb-6 rounded-sm border-b-8 border-blue-600 mt-2 hover:bg-blue-800 active:border-b-0 active:py-3 transition-all ease-in-out"
           >
             Зберегти рецепт
-          </button>
-        </div>
+          </Button>
+        </CardBody>
       ) : (
-        <p className="text-gray-600">Будь ласка, увійдіть, щоб додати рецепт</p>
+        <p className="text-gray-600 text-center p-5">
+          Будь ласка, увійдіть, щоб додати рецепт
+        </p>
       )}
-    </div>
+    </Card>
   );
 }

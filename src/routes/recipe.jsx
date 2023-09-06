@@ -179,10 +179,7 @@ const RecipeBook = () => {
       <div className="flex flex-col items-start m-8 animate__animated animate__fadeInRight">
         <ul className="w-full flex flex-col">
           {filteredRecipes.slice(0, visibleRecipeCount).map((recipe, index) => (
-            <li
-              key={index}
-              className="mb-5 w-full sm:w-96 flex flex-col p-4 gap-3"
-            >
+            <li key={index} className="mb-5 w-full sm:w-96 flex flex-col gap-3">
               <Card>
                 <CardBody className="flex flex-col gap-5 pb-3">
                   <h4 className="text-2xl">{recipe.name}</h4>
@@ -220,24 +217,25 @@ const RecipeBook = () => {
                     )}
                   </p>
 
-                  {recipe.ingredients.some(
-                    (ingredient) => !selectedIngredients.has(ingredient)
-                  ) && (
-                    <Tooltip
-                      className="h-15 text-sm text-center"
-                      content="Додати невистачаючі інгредієнти у список покупок"
-                    >
-                      <Button
-                        className="self-center"
-                        color="amber"
-                        onClick={() =>
-                          handleAddToShoppingList(recipe.ingredients)
-                        }
+                  {auth.currentUser &&
+                    recipe.ingredients.some(
+                      (ingredient) => !selectedIngredients.has(ingredient)
+                    ) && (
+                      <Tooltip
+                        className="h-15 text-sm text-center"
+                        content="Додати невистачаючі інгредієнти у список покупок"
                       >
-                        Хочу приготувати!
-                      </Button>
-                    </Tooltip>
-                  )}
+                        <Button
+                          className="self-center"
+                          color="amber"
+                          onClick={() =>
+                            handleAddToShoppingList(recipe.ingredients)
+                          }
+                        >
+                          Хочу приготувати!
+                        </Button>
+                      </Tooltip>
+                    )}
                   <div className="flex flex-row justify-between">
                     <p>
                       <span className="text-blue-600">

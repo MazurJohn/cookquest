@@ -45,7 +45,7 @@ const InfoList = () => {
 
   return (
     <div className="flex justify-center mt-10 animate__animated animate__fadeInUp">
-      <Card className="mt-6 w-96">
+      <Card className="mt-6 w-11/12">
         <CardBody className="flex flex-col items-center">
           {user ? (
             <>

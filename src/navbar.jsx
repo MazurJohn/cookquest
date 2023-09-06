@@ -147,20 +147,22 @@ function NavList({ toggleNav }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      const shoppingListRef = child(usersRef, `${user.uid}/shoppingList`);
-      const shoppingListUnsubscribe = onValue(shoppingListRef, (snapshot) => {
-        const shoppingList = snapshot.val();
-        if (shoppingList) {
-          setShowShoppingListIndicator(true);
-          setShoppingLength(shoppingList.length);
-        } else {
-          setShowShoppingListIndicator(false);
-          setShoppingLength(0);
-        }
-      });
-      return () => {
-        shoppingListUnsubscribe();
-      };
+      if (user) {
+        const shoppingListRef = child(usersRef, `${user.uid}/shoppingList`);
+        const shoppingListUnsubscribe = onValue(shoppingListRef, (snapshot) => {
+          const shoppingList = snapshot.val();
+          if (shoppingList) {
+            setShowShoppingListIndicator(true);
+            setShoppingLength(shoppingList.length);
+          } else {
+            setShowShoppingListIndicator(false);
+            setShoppingLength(0);
+          }
+        });
+        return () => {
+          shoppingListUnsubscribe();
+        };
+      }
     });
 
     return () => {
@@ -217,21 +219,23 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-      const shoppingListRef = child(usersRef, `${user.uid}/shoppingList`);
-      const shoppingListUnsubscribe = onValue(shoppingListRef, (snapshot) => {
-        const shoppingList = snapshot.val();
-        if (shoppingList) {
-          setShowShoppingListIndicator(true);
-          setShoppingLength(shoppingList.length);
-        } else {
-          setShowShoppingListIndicator(false);
-          setShoppingLength(0);
-        }
-      });
-      return () => {
-        shoppingListUnsubscribe();
-      };
+      if (user) {
+        setUser(user);
+        const shoppingListRef = child(usersRef, `${user.uid}/shoppingList`);
+        const shoppingListUnsubscribe = onValue(shoppingListRef, (snapshot) => {
+          const shoppingList = snapshot.val();
+          if (shoppingList) {
+            setShowShoppingListIndicator(true);
+            setShoppingLength(shoppingList.length);
+          } else {
+            setShowShoppingListIndicator(false);
+            setShoppingLength(0);
+          }
+        });
+        return () => {
+          shoppingListUnsubscribe();
+        };
+      }
     });
 
     return () => {
@@ -277,7 +281,10 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
             userlevel={userlevel}
           />
         ) : (
-          <button className="sm:absolute sm:right-0" onClick={signInWithGoogle}>
+          <button
+            className="sm:absolute sm:right-0 font-semibold"
+            onClick={signInWithGoogle}
+          >
             Увійти
           </button>
         )}
