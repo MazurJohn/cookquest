@@ -251,12 +251,9 @@ const RecipeBook = () => {
           ))}
         </ul>
         {visibleRecipeCount < filteredRecipes.length && (
-          <button
-            className="bg-emerald-500 text-white px-4 py-2 rounded-sm border-b-8 border-emerald-600 mt-2 hover:bg-emerald-800 active:border-b-0 active:py-3 transition-all ease-in-out"
-            onClick={showMoreRecipes}
-          >
+          <Button color="blue" className="self-end" onClick={showMoreRecipes}>
             Показати більше рецептів
-          </button>
+          </Button>
         )}
       </div>
     </div>
