@@ -12,6 +12,7 @@ import {
   Option,
   Textarea,
 } from "@material-tailwind/react";
+import AlertDialog from "../dialog";
 
 export default function AddRecipe() {
   const [user, setUser] = useState(null);
@@ -19,6 +20,15 @@ export default function AddRecipe() {
   const [category, setCategory] = useState("Закуска");
   const [ingredients, setIngredients] = useState("");
   const [description, setDescription] = useState("");
+  const [infoDialogOpen, setInfoDialogOpen] = useState(false);
+
+  const openInfoDialog = () => {
+    setInfoDialogOpen(true);
+  };
+
+  const closeInfoDialog = () => {
+    setInfoDialogOpen(false);
+  };
 
   useEffect(() => {
     const auth = getAuth();
@@ -110,10 +120,17 @@ export default function AddRecipe() {
           <Button
             className="self-center"
             color="green"
-            onClick={handleAddRecipe}
+            onClick={openInfoDialog}
           >
             Зберегти рецепт
           </Button>
+          <AlertDialog
+            open={infoDialogOpen}
+            onClose={closeInfoDialog}
+            title="Зберегти рецепт?"
+            content={`Додати рецепт ${name}?`}
+            onConfirm={handleAddRecipe}
+          />
         </CardBody>
       ) : (
         <p className="text-gray-600 text-center p-5">
