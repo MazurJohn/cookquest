@@ -17,11 +17,11 @@ function AlertDialog({ open, onClose, title, content, onConfirm }) {
   };
 
   return (
-    <>
+    <div className="absolute z-10 w-11/12 top-5">
       <Dialog
         open={open}
         handler={onClose}
-        className="flex flex-col items-center"
+        className="flex flex-col items-center -top-52"
       >
         <DialogHeader>{title}</DialogHeader>
         <DialogBody divider>{content}</DialogBody>
@@ -40,12 +40,12 @@ function AlertDialog({ open, onClose, title, content, onConfirm }) {
         onClose={() => setOpenAlert(false)}
         animate={{
           mount: { y: 0 },
-          unmount: { y: 100 },
+          unmount: { y: -100 },
         }}
       >
         Успішно!
       </Alert>
-    </>
+    </div>
   );
 }
 

@@ -131,11 +131,21 @@ const RecipeBook = () => {
 
   const filteredRecipes =
     selectedIngredients.size > 0
-      ? recipes.filter((recipe) =>
-          recipe.ingredients.some((ingredient) =>
-            selectedIngredients.has(ingredient)
+      ? recipes
+          .filter((recipe) =>
+            recipe.ingredients.some((ingredient) =>
+              selectedIngredients.has(ingredient)
+            )
           )
-        )
+          .sort((a, b) => {
+            const aMatches = a.ingredients.filter((ingredient) =>
+              selectedIngredients.has(ingredient)
+            ).length;
+            const bMatches = b.ingredients.filter((ingredient) =>
+              selectedIngredients.has(ingredient)
+            ).length;
+            return bMatches - aMatches;
+          })
       : recipes;
 
   return (
@@ -168,7 +178,7 @@ const RecipeBook = () => {
             <p
               key={index}
               onClick={() => handleIngredientClick(ingredient)}
-              className="cursor-pointer selected-ingredient p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-amber-300"
+              className="cursor-pointer selected-ingredient p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-amber-300 animate__animated animate__fadeInLeft animate__faster"
             >
               {ingredient}
             </p>

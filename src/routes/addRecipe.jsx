@@ -76,67 +76,71 @@ export default function AddRecipe() {
   }
 
   return (
-    <Card className="w-11/12 sm:w-96 mt-10">
-      <h1 className="text-2xl font-semibold m-4 text-center">Додати рецепт</h1>
-      {user ? (
-        <CardBody className="flex flex-col">
-          <div className="mb-4">
-            <Input
-              label="Назва"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div>
-            <select
-              className="border border-blue-gray-200 w-full rounded-[7px] p-2"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+    <div className="relative flex flex-col items-center">
+      <AlertDialog
+        open={infoDialogOpen}
+        onClose={closeInfoDialog}
+        title="Зберегти рецепт?"
+        content={`Додати рецепт ${name}?`}
+        onConfirm={handleAddRecipe}
+      />
+      <Card className="w-11/12 sm:w-96 mt-10 z-0">
+        <h1 className="text-2xl font-semibold m-4 text-center">
+          Додати рецепт
+        </h1>
+        {user ? (
+          <CardBody className="flex flex-col">
+            <div className="mb-4">
+              <Input
+                label="Назва"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div>
+              <select
+                className="border border-blue-gray-200 w-full rounded-[7px] p-2"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="Закуска">Закуска</option>
+                <option value="Суп">Суп</option>
+                <option value="Десерт">Десерт</option>
+              </select>
+            </div>
+            <div className="mb-4">
+              <p className="text-gray-400 text-center text-[12px]">
+                Додавайте інгредієнти через кому: "цибуля, картопля, капуста"...
+              </p>
+              <Input
+                label="Інгредієнти"
+                type="text"
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <Textarea
+                label="Опис"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <Button
+              className="self-center"
+              color="green"
+              onClick={openInfoDialog}
             >
-              <option value="Закуска">Закуска</option>
-              <option value="Суп">Суп</option>
-              <option value="Десерт">Десерт</option>
-            </select>
-          </div>
-          <div className="mb-4">
-            <p className="text-gray-400 text-center text-[12px]">
-              Додавайте інгредієнти через кому: "цибуля, картопля, капуста"...
-            </p>
-            <Input
-              label="Інгредієнти"
-              type="text"
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <Textarea
-              label="Опис"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <Button
-            className="self-center"
-            color="green"
-            onClick={openInfoDialog}
-          >
-            Зберегти рецепт
-          </Button>
-          <AlertDialog
-            open={infoDialogOpen}
-            onClose={closeInfoDialog}
-            title="Зберегти рецепт?"
-            content={`Додати рецепт ${name}?`}
-            onConfirm={handleAddRecipe}
-          />
-        </CardBody>
-      ) : (
-        <p className="text-gray-600 text-center p-5">
-          Будь ласка, увійдіть, щоб додати рецепт
-        </p>
-      )}
-    </Card>
+              Зберегти рецепт
+            </Button>
+          </CardBody>
+        ) : (
+          <p className="text-gray-600 text-center p-5">
+            Будь ласка, увійдіть, щоб додати рецепт
+          </p>
+        )}
+      </Card>
+    </div>
   );
 }
