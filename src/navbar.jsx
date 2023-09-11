@@ -183,6 +183,7 @@ function NavList({ toggleNav }) {
             {label === "Список покупок" ? (
               <MenuItem className="flex items-center gap-2 lg:rounded-full">
                 <Badge
+                  color="blue"
                   content={shoppingLength}
                   invisible={shoppingLength === 0 ? true : false}
                 >
@@ -270,7 +271,7 @@ export function ComplexNavbar({ userphoto, username, userlevel }) {
           onClick={toggleIsNavOpen}
           className="ml-auto mr-2 lg:hidden"
         >
-          <Badge invisible={shoppingLength === 0 ? true : false}>
+          <Badge color="blue" invisible={shoppingLength === 0 ? true : false}>
             <Bars2Icon className="h-6 w-6 text-black" />
           </Badge>
         </IconButton>

@@ -120,9 +120,14 @@ const RecipeBook = () => {
     selectedIngredients.has(ingredient);
 
   const ingredientStyle = (ingredient) => {
-    return isIngredientSelected(ingredient)
-      ? "text-blue-400 font-semibold"
-      : "";
+    return isIngredientSelected(ingredient) ? "bg-blue-400 text-white" : "";
+  };
+
+  const isIngredientSelectedTop = (ingredient) =>
+    selectedIngredients.has(ingredient);
+
+  const ingredientStyleTop = (ingredient) => {
+    return isIngredientSelectedTop(ingredient) ? "hidden" : "";
   };
 
   const filteredIngredients = Array.from(allIngredients).filter((ingredient) =>
@@ -164,7 +169,7 @@ const RecipeBook = () => {
             <p
               key={index}
               onClick={() => handleIngredientClick(ingredient)}
-              className={`cursor-pointer ${ingredientStyle(
+              className={`cursor-pointer ${ingredientStyleTop(
                 ingredient
               )} p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-amber-300`}
             >
@@ -178,7 +183,7 @@ const RecipeBook = () => {
             <p
               key={index}
               onClick={() => handleIngredientClick(ingredient)}
-              className="cursor-pointer selected-ingredient p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-amber-300 animate__animated animate__fadeInLeft animate__faster"
+              className="cursor-pointer selected-ingredient p-2 sm:p-0 m-1 mb-0 text-center rounded-xl bg-blue-400 text-white animate__animated animate__fadeInLeft animate__faster"
             >
               {ingredient}
             </p>
@@ -191,26 +196,25 @@ const RecipeBook = () => {
           {filteredRecipes.slice(0, visibleRecipeCount).map((recipe, index) => (
             <li key={index} className="mb-5 w-full sm:w-96 flex flex-col gap-3">
               <Card>
-                <CardBody className="flex flex-col gap-5 pb-3">
+                <CardBody className="flex flex-col items-start gap-3 pb-3">
                   <h4 className="text-2xl">{recipe.name}</h4>
-                  <p>
-                    <span className="underline">Категорія:</span>{" "}
+                  <p className="bg-green-300 rounded-md pl-1 pr-1 text-white">
                     {recipe.category}
                   </p>
-                  <p className="bg-yellow-100 rounded-md pl-2">
-                    <span className="underline">Інгредієнти:</span>{" "}
+                  <p>
                     {recipe.ingredients.map((ingredient, i) => (
                       <span
                         key={i}
-                        className={`ingredient ${ingredientStyle(ingredient)}`}
+                        className={`ingredient ${ingredientStyle(
+                          ingredient
+                        )} bg-amber-300 rounded-md pl-2 pr-2 mr-1`}
                       >
                         {ingredient}
-                        {i !== recipe.ingredients.length - 1 ? ", " : ""}
+                        {i !== recipe.ingredients.length - 1 ? " " : ""}
                       </span>
                     ))}
                   </p>
-                  <p>
-                    <span className="underline">Опис:</span>{" "}
+                  <p className="bg-yellow-100 rounded-r-md border-l-4 border-blue-300 p-2">
                     {recipe.description.length > 50 &&
                     expandedRecipeId === recipe.recipeId
                       ? recipe.description
@@ -246,7 +250,7 @@ const RecipeBook = () => {
                         </Button>
                       </Tooltip>
                     )}
-                  <div className="flex flex-row justify-between">
+                  <div className="flex flex-row w-full justify-between">
                     <p>
                       <span className="text-blue-600">
                         {users[recipe.userId]?.userName ||
