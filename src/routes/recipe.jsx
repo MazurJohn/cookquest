@@ -196,11 +196,11 @@ const RecipeBook = () => {
           {filteredRecipes.slice(0, visibleRecipeCount).map((recipe, index) => (
             <li key={index} className="mb-5 w-full sm:w-96 flex flex-col gap-3">
               <Card>
-                <CardBody className="flex flex-col items-start gap-3 pb-3">
-                  <h4 className="text-2xl">{recipe.name}</h4>
-                  <p className="bg-green-300 rounded-md pl-1 pr-1 text-white">
+                <CardBody className="flex flex-col items-start gap-3 pb-3 relative">
+                  <h4 className="text-2xl mt-3">{recipe.name}</h4>
+                  <span className="bg-green-300 rounded-md pl-1 pr-1 h-5 text-white text-[11px] absolute right-5 top-4">
                     {recipe.category}
-                  </p>
+                  </span>
                   <p>
                     {recipe.ingredients.map((ingredient, i) => (
                       <span
@@ -214,7 +214,7 @@ const RecipeBook = () => {
                       </span>
                     ))}
                   </p>
-                  <p className="bg-yellow-100 rounded-r-md border-l-4 border-blue-300 p-2">
+                  <p className="bg-yellow-100 rounded-r-md border-l-4 mt-2 border-blue-300 p-2">
                     {recipe.description.length > 50 &&
                     expandedRecipeId === recipe.recipeId
                       ? recipe.description
@@ -236,11 +236,11 @@ const RecipeBook = () => {
                       (ingredient) => !selectedIngredients.has(ingredient)
                     ) && (
                       <Tooltip
-                        className="h-15 text-sm text-center"
+                        className="h-15 w-11/12 text-sm text-center"
                         content="Додати невистачаючі інгредієнти у список покупок"
                       >
                         <Button
-                          className="self-center"
+                          className="self-center m-3"
                           color="amber"
                           onClick={() =>
                             handleAddToShoppingList(recipe.ingredients)

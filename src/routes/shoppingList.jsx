@@ -11,11 +11,21 @@ import {
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import { Button } from "@material-tailwind/react";
+import AlertDialog from "../dialog";
 
 const ShoppingList = () => {
   const [shoppingList, setShoppingList] = useState([]);
   const [user, setUser] = useState(null);
   const [crossedIngredients, setCrossedIngredients] = useState([]);
+  const [infoDialogOpen, setInfoDialogOpen] = useState(false);
+
+  const openInfoDialog = () => {
+    setInfoDialogOpen(true);
+  };
+
+  const closeInfoDialog = () => {
+    setInfoDialogOpen(false);
+  };
 
   useEffect(() => {
     if (user) {
@@ -77,6 +87,13 @@ const ShoppingList = () => {
 
   return (
     <div className="flex flex-col items-center mt-10 animate__animated animate__fadeInUp">
+      <AlertDialog
+        open={infoDialogOpen}
+        onClose={closeInfoDialog}
+        title="Очистити список?"
+        content="Бажаєте повністю очистити Список Покупок?"
+        onConfirm={handleClearList}
+      />
       <h2 className="text-xl font-semibold mb-4 bg-yellow-100">
         Список покупок
       </h2>
@@ -112,7 +129,7 @@ const ShoppingList = () => {
         )}
       </div>
       {shoppingList.length > 0 && (
-        <Button className="mt-5" color="red" onClick={handleClearList}>
+        <Button className="mt-5" color="red" onClick={openInfoDialog}>
           Очистити список
         </Button>
       )}

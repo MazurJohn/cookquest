@@ -17,7 +17,7 @@ function AlertDialog({ open, onClose, title, content, onConfirm }) {
   };
 
   return (
-    <div className="absolute z-10 w-11/12 top-5">
+    <div className="absolute z-10 top-5">
       <Dialog
         open={open}
         handler={onClose}
@@ -35,6 +35,7 @@ function AlertDialog({ open, onClose, title, content, onConfirm }) {
         </DialogFooter>
       </Dialog>
       <Alert
+        className="w-[300px]"
         color="green"
         open={openAlert}
         onClose={() => setOpenAlert(false)}

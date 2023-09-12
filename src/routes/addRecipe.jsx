@@ -75,6 +75,9 @@ export default function AddRecipe() {
     setDescription("");
   }
 
+  const isAnyFieldEmpty =
+    name === "" || ingredients === "" || description === "";
+
   return (
     <div className="relative flex flex-col items-center">
       <AlertDialog
@@ -131,6 +134,7 @@ export default function AddRecipe() {
               className="self-center"
               color="green"
               onClick={openInfoDialog}
+              disabled={isAnyFieldEmpty}
             >
               Зберегти рецепт
             </Button>
